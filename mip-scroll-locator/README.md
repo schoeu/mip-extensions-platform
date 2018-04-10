@@ -12,23 +12,6 @@ mip-scroll-locator 组件说明
 
 ### 基本用法
 ```html
-<style>
-ul{
-    display: flex;
-    height: 50px;
-
-}
-li{
-    flex: 1;
-    list-style: none;
-}
-.examples p {
-    height: 150px;
-}
-.current {
-    border: 1px solid;
-}
-</style>
 <mip-scroll-locator data-current-class="current" wrapper="examples">
         <mip-fixed type="top">
             <nav>
