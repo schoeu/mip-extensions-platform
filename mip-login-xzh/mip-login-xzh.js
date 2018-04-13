@@ -83,7 +83,7 @@ define(function (require) {
         util.post(self.config.endpoint, {
             type: 'logout'
         }).then(function (res) {
-            // 清空 accessToken
+            // 清空 sessionId
             util.store.remove(self.config.endpoint);
 
             if (res.data && res.data.url) {
@@ -102,7 +102,7 @@ define(function (require) {
                 self.loginHandle('logout', false);
             }
         }).catch(function (data) {
-            // 清空 accessToken
+            // 清空 sessionId
             util.store.remove(self.config.endpoint);
 
             self.loginHandle('logout', false);
@@ -258,15 +258,13 @@ define(function (require) {
         }
 
         return util.post(self.config.endpoint, data).then(function (res) {
+            // 记录 sessionId 到 ls 中，修复在 iOS 高版本下跨域 CORS 透传 cookie 失效问题
+            if (res.sessionId) {
+                util.store.set(self.config.endpoint, res.sessionId);
+            }
+
             if (data.type === 'login') {
                 if (res.status === 0 && res.data) {
-                    if (!res.data.accessToken) {
-                        return self.error('后端数据必须返回 response.data.accessToken 用户唯一凭证参数。');
-                    }
-
-                    // 记录 accessToken 到 ls 中，修复在 iOS 高版本下跨域 CORS 透传 cookie 失效问题
-                    util.store.set(self.config.endpoint, res.data.accessToken);
-
                     self.loginHandle('login', true, res.data);
                 }
                 else {

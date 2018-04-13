@@ -134,6 +134,7 @@ define(function (require) {
         return url;
     }
 
+
     customElement.prototype.build = function () {
         var self = this;
         self.addEventAction('refresh', function (e) {
@@ -212,7 +213,7 @@ define(function (require) {
                 }
             });
         }
-    }
 
+    }
     return customElement;
 });
