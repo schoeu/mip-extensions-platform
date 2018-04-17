@@ -1,6 +1,6 @@
 /**
  * @file 弹出层
- * @author fe.xiaowu <fe.xiaowu@gmail.com>
+ * @author MIP
  * @events
  *     show 显示
  *     close 关闭
